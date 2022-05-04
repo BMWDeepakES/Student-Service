@@ -1,0 +1,53 @@
+# Student-Service
+Student and Subject Relational Application
+
+Student-Service Guide
+	Software Specification :- Java 17, Springboot 2.6.7,Maven, Mysql 5.7
+	Hardware Specification :- windows 7 and above version, I3 Processor for better speed and above.
+	Software step required :-  Java JDK, Mysql, IDE STS or Intelij
+	Process to import Student-service :-   1) Unzip Student-service Application 2) open in your available IDE 3) Do Maven clean 4)Maven install.
+Flow for get result :- 1) Add/save/create  Student using 
+curl --location --request POST 'http://localhost:8081/StudentDetails/save' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name" : "Deepak",
+    "age" : 30,
+    "address" : "Ahmednagar"
+}'
+
+Note – for testing you can add student as per your need. Minimum 1 student is required for testing and you and add maximum as you required 
+
+2)  Check Student list with 
+curl --location --request GET 'http://localhost:8081/StudentDetails/students'
+
+3) Add/save/create Subject  
+curl --location --request POST 'http://localhost:8081/subjectDetails/save' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "subjectName": "Java",
+    "mark" : 68
+}'
+
+Note – for testing you can add subject as per your needs. Minimum 1 subject is required for testing and you and add maximum as you required.
+
+4) Assign Subject to Student :- 
+for our required output we need to map Student and Subject relation.
+for mapping use :- 
+curl --location --request PUT 'http://localhost:8081/StudentDetails/addsubject/16/17' 
+
+5) Student with Subject required output use :- 
+curl --location --request GET 
+'http://localhost:8081/StudentDetails/student?studentName=Deepak
+'
+Output – 
+{
+    "name": "Deepak",
+    "age": 30,
+    "address": "Ahmednagar",
+    "subjects": [
+        {
+            "Java": 68
+        }
+    ]
+}
+
